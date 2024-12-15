@@ -2,11 +2,17 @@ package org.github.code.algos.algorithms;
 
 public class MergeSortTopDown {
 
-    public static void sort(int[] arr) {
+    private boolean debug = false;
+
+    public MergeSortTopDown( boolean debug){
+        this.debug = debug;
+    }
+
+    public void sort(int[] arr) {
         mergeSort( arr, 0, arr.length-1);
     }
 
-    public static void mergeSort( int[] arr, int left, int right){
+    public void mergeSort( int[] arr, int left, int right){
 
         if( left < right ){
 
@@ -21,16 +27,22 @@ public class MergeSortTopDown {
                 }
             }else {
 
-                System.out.println("before split: left: " + left + ", middle: " + middle + ", right: " + right + ", array: "+ printArray(arr));
+                if(debug ) {
+                    System.out.println("before split: left: " + left + ", middle: " + middle + ", right: " + right + ", array: " + printArray(arr));
+                }
 
                 mergeSort(arr, 0, middle);
                 mergeSort(arr, middle + 1, right);
 
 
-                System.out.println("before merge: "+ printArray(arr));
+                if( debug) {
+                    System.out.println("before merge: " + printArray(arr));
+                }
                 merge(arr, left, right, middle);
 
-                System.out.println("after merge: "+ printArray(arr));
+                if( debug) {
+                    System.out.println("after merge: " + printArray(arr));
+                }
             }
         }
     }
@@ -49,7 +61,7 @@ public class MergeSortTopDown {
         return sb.toString();
     }
 
-    public static void merge(final int[] arr, final int left, final int right, final int middle) {
+    public  void merge(final int[] arr, final int left, final int right, final int middle) {
 
         int count = 0;
         int total = right - left +1 ;
@@ -67,7 +79,9 @@ public class MergeSortTopDown {
         int n = 0;
         int m = 0;
 
-        System.out.println( "left: " + printArray(leftarray) + ", right: "+ printArray(rightarray));
+        if( debug) {
+            System.out.println("left: " + printArray(leftarray) + ", right: " + printArray(rightarray));
+        }
 
         while( ( n < leftcount ) && ( m < rightcount ) ){
 
@@ -95,7 +109,9 @@ public class MergeSortTopDown {
             m++;
         }
 
-        System.out.println( "result: " + printArray(sorted));
+        if( debug ) {
+            System.out.println("result: " + printArray(sorted));
+        }
 
         // copy the sorted values into the original array
         int i=0;
@@ -110,9 +126,12 @@ public class MergeSortTopDown {
 
         int[] input = {67, 35, 23, 99};
 
-        sort(input);
+        MergeSortTopDown sorter = new MergeSortTopDown(false);
 
-        sort(new int[]{6,78,4,99,3,26,1,0});
+        sorter.sort(input);
+
+        System.out.println( MergeSortTopDown.printArray(input));
+        //sorter.sort(new int[]{6,78,4,99,3,26,1,0});
     }
 }
 
