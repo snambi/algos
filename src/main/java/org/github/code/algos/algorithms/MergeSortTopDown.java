@@ -21,16 +21,16 @@ public class MergeSortTopDown {
                 }
             }else {
 
-                System.out.println("before: "+ printArray(arr));
+                System.out.println("before split: left: " + left + ", middle: " + middle + ", right: " + right + ", array: "+ printArray(arr));
 
                 mergeSort(arr, 0, middle);
                 mergeSort(arr, middle + 1, right);
 
 
-                System.out.println("middle: "+ printArray(arr));
+                System.out.println("before merge: "+ printArray(arr));
                 merge(arr, left, right, middle);
 
-                System.out.println("after: "+ printArray(arr));
+                System.out.println("after merge: "+ printArray(arr));
             }
         }
     }
@@ -49,38 +49,61 @@ public class MergeSortTopDown {
         return sb.toString();
     }
 
-    public static void merge(int[] arr, int left, int right, int middle) {
+    public static void merge(final int[] arr, final int left, final int right, final int middle) {
 
-        int[] result = new int[right-left];
         int count = 0;
-        int total = right - left;
+        int total = right - left +1 ;
+        int[] sorted = new int[total];
 
-        int innerLoopPosition = middle +1;
-        for( int i=left; i <=middle; i++){
-            int x = arr[i];
-            for( int j=innerLoopPosition ; j<=right ; j++ ){
+        int leftcount = middle-left + 1;
+        int rightcount = right-middle;
 
-                if( x <= arr[j]){
-                    // copy the left value to result
-                    result[count] = x;
-                    count++;
-//                    result[count] = arr[j];
-//                    count++;
-//                    innerLoopPosition++;
-                    break;
-                }
+        int[] leftarray = new int[leftcount];
+        int[] rightarray = new int[rightcount];
 
-                if( x > arr[j]){
-                    // copy the right value to result
-                    result[count] = arr[j];
-                    count++;
-                    innerLoopPosition++;
-                    // no break
-                }
+        System.arraycopy(arr, left, leftarray, 0, leftcount);
+        System.arraycopy(arr, middle+1, rightarray, 0, rightcount);
+
+        int n = 0;
+        int m = 0;
+
+        System.out.println( "left: " + printArray(leftarray) + ", right: "+ printArray(rightarray));
+
+        while( ( n < leftcount ) && ( m < rightcount ) ){
+
+           if( leftarray[n] <= rightarray[m] ){
+                sorted[count] = leftarray[n];
+                n++;
+           }else{
+               sorted[count] = rightarray[m];
+                m++;
             }
+
+            count++;
         }
 
-        System.out.println( "result: " + printArray(result));
+        // copy the remaining elements
+        while( n < leftcount ){
+            sorted[count] = leftarray[n];
+            count++;
+            n++;
+        }
+
+        while( m < rightcount ){
+            sorted[count] = rightarray[m];
+            count++;
+            m++;
+        }
+
+        System.out.println( "result: " + printArray(sorted));
+
+        // copy the sorted values into the original array
+        int i=0;
+        while( i < sorted.length ){
+            int x = sorted[i];
+            arr[left+i] = x;
+            i++;
+        }
     }
 
     public static void main(String[] args){
@@ -88,6 +111,8 @@ public class MergeSortTopDown {
         int[] input = {67, 35, 23, 99};
 
         sort(input);
+
+        sort(new int[]{6,78,4,99,3,26,1,0});
     }
 }
 
