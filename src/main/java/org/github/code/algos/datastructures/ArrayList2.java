@@ -1,5 +1,10 @@
 package org.github.code.algos.datastructures;
 
+/**
+ * ArrayList
+ *
+ * @param <T>
+ */
 public class ArrayList2<T> {
 
     private static final int DEFAULT_CAPACITY = 10;
@@ -68,7 +73,4 @@ public class ArrayList2<T> {
             throw new IndexOutOfBoundsException();
         }
     }
-
-
-
 }
