@@ -2,8 +2,7 @@ package org.github.code.algos.medium;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SimplifyPathStackTest {
 
@@ -61,5 +60,39 @@ public class SimplifyPathStackTest {
         assertEquals(sps.isValidChar('U'), true);
 
         assertEquals(sps.isValidChar('*'), false);
+    }
+
+    @Test
+    public void pathTests1(){
+        SimplifyPathStack sps = new SimplifyPathStack();
+
+        String inputPath = "/.../a/../b/c/../d/./";
+        String path = sps.simplifyPath(inputPath);
+        System.out.println("Input: "+ inputPath + ", Simplified: "+ path);
+
+        assertNotNull(path);
+    }
+
+    @Test
+    public void pathTests2(){
+        SimplifyPathStack sps = new SimplifyPathStack();
+
+        String inputPath = "/a/s";
+
+        String path = sps.simplifyPath(inputPath);
+
+        assertNotNull(path);
+    }
+
+    @Test
+    public void pathTests3(){
+        SimplifyPathStack sps = new SimplifyPathStack();
+
+        String inputPath = "/...";
+        String path = sps.simplifyPath(inputPath);
+
+        System.out.println("Input: "+ inputPath + ", Simplified: "+ path);
+
+        assertNotNull(path);
     }
 }
