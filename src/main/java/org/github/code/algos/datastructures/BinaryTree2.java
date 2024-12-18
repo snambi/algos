@@ -1,9 +1,7 @@
 package org.github.code.algos.datastructures;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
